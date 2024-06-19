@@ -495,3 +495,38 @@ for(let i=positionD; i<=DlArr.length-1; i++){
 }
 DlArr.length = DlArr.length-1;
 console.log(DlArr);
+
+
+
+
+
+
+function abc() {
+console.log("call back");
+}
+
+function fun(val,fun1) {
+    console.log(val);
+    fun1();
+}
+
+
+fun("test",abc);
+
+
+// what is enevt driven 
+// how we can optimize or node js code.
+// security in node
+
+
+var x={},
+  y={key:"y"},
+  a={key:"z"},
+  z={key:"z"};
+x[y] = 11;
+x[z] = 21;
+x[a] = 43;
+console.log(x[y]);
+
+
+//   How do you remove an item from an array at a specific index?
