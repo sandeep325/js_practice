@@ -1,0 +1,666 @@
+TypeScript is JavaScript with added syntax for types.
+-------------------------------------------------------------------
+
+Why should I use TypeScript?
+----------------------------------
+JavaScript is a loosely typed language. It can be difficult to understand what types of data are being passed around in JavaScript.
+
+In JavaScript, function parameters and variables don't have any information! So developers need to look at documentation, or guess based on the implementation.
+
+TypeScript allows specifying the types of data being passed around within the code, and has the ability to report errors when the types don't match.
+
+For example, TypeScript will report an error when passing a string into a function that expects a number. JavaScript will not.
+
+How do I use TypeScript?
+-----------------------------------
+A common way to use TypeScript is to use the official TypeScript compiler, which transpiles TypeScript code into JavaScript.
+
+Note:-TypeScript being converted into JavaScript means it runs anywhere that JavaScript runs!
+----
+
+---------------------------------------------------------------------------------------------------------------
+Configuring the compiler
+--------------------------
+By default the TypeScript compiler will print a help message when run in an empty project.
+
+The compiler can be configured using a tsconfig.json file.
+
+You can have TypeScript create tsconfig.json with the recommended settings with:
+
+npx tsc --init
+Which should give you an output similar to:
+
+Created a new tsconfig.json with:
+TS
+  target: es2016
+  module: commonjs
+  strict: true
+  esModuleInterop: true
+  skipLibCheck: true
+  forceConsistentCasingInFileNames: true
+
+You can learn more at https://aka.ms/tsconfig.json
+Here is an example of more things you could add to the tsconfig.json file:
+
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "./build"
+  }
+}
+
+---------------------------------------------------------------------------------------------------------------
+There are three main primitives in JavaScript and TypeScript.
+------------------------------------------------------------
+
+boolean - true or false values
+number - whole numbers and floating point values
+string - text values like "TypeScript Rocks"
+any -    any is a type that disables type checking and effectively allows all types to be used.
+unknown - unknown is a similar, but safer alternative to any.
+never - never effectively throws an error whenever it is defined.
+undefined & Null - undefined and null are types that refer to the JavaScript primitives undefined and null respectively. 
+
+There are also 2 less common primitives used in later versions of Javascript and TypeScript.
+
+bigint - whole numbers and floating point values, but allows larger negative and positive numbers than the number type.
+symbol - are used to create a globally unique identifier.
+---------------------------------------------------------------------------------------------------------------
+
+Type Assignment
+---------------------------
+When creating a variable, there are two main ways TypeScript assigns a type:
+
+1.Explicit
+----------------
+let firstName: string = "Dylan";
+
+2.Implicit
+----------------------
+here typescript will guess the type of variable.
+
+let name="Sanat"
+Note:-- Having TypeScript "guess" the type of a value is called Infer.
+Implicit type assignment are shorter, faster to type, and often used when developing and testing.
+---------------------------------------------------------------------------------------------------------------
+
+Unable to Infer
+-------------------
+TypeScript may not always properly infer what the type of a variable may be. In such cases, it will set the type to any which disables type checking.
+
+This behavior can be disabled by enabling noImplicitAny as an option in a TypeScript's project tsconfig.json. That is a JSON config file for customizing how some of TypeScript behaves.
+
+---------------------------------------------------------------------------------------------------------------
+The readonly keyword can prevent arrays from being changed.
+const names: readonly string[] = ["Dylan"];
+---------------------------------------------------------------------------------------------------------------
+
+Tuple
+------
+A tuple is a typed array with a pre-defined length and types for each index.
+
+let ourTuple: [number, boolean, string];
+
+// initialize correctly
+ourTuple = [5, false, 'Coding God was here'];
+outTuple.push("hello")
+
+Note:- If we try to push one more element to touple it will add more value but its good practice to make touple as readonly.
+
+let ourTuple: readonly [number, boolean, string];
+
+// initialize correctly
+ourTuple = [5, false, 'Coding God was here'];
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Named Tuples
+---------------
+Named tuples allow us to provide context for our values at each index.
+
+const graph: [x: number, y: number] = [55.2, 41.3];
+
+Destructuring Tuples
+-----------------------------------
+Since tuples are arrays we can also destructure them.
+
+const graph: [number, number] = [55.2, 41.3];
+const [x, y] = graph;
+
+---------------------------------------------------------------------------------------------------------------
+
+TypeScript Object Types
+--------------------------
+TypeScript has a specific syntax for typing objects.
+const car: { type: string, model: string, year: number } = {
+  type: "Toyota",
+  model: "Corolla",
+  year: 2009
+};
+
+
+Type Inference
+---------------------------
+TypeScript can infer the types of properties based on their values.
+
+const car = {
+  type: "Toyota",
+};
+car.type = "Ford"; // no error
+car.type = 2; // Error: Type 'number' is not assignable to type 'string'.
+
+
+Optional Properties
+-------------------------
+Optional properties are properties that don't have to be defined in the object definition.
+
+const car: { type: string, mileage?: number } = { // no error
+  type: "Toyota"
+};
+car.mileage = 2000;
+
+---------------------------------------------------------------------------------------------------------------
+
+TypeScript Enums
+--------------------------
+An enum is a special "class" that represents a group of constants (unchangeable variables).
+
+Enums come in two flavors string and numeric. Lets start with numeric.
+
+1.Numeric Enums - Default
+-----------------------------------
+By default, enums will initialize the first value to 0 and add 1 to each additional value:
+enum CardinalDirections {
+  North,
+  East,
+  South,
+  West
+}
+let currentDirection = CardinalDirections.North;
+// logs 0
+console.log(currentDirection);
+// throws error as 'North' is not a valid enum
+currentDirection = 'North'; // Error: "North" is not assignable to type 'CardinalDirections'.
+
+2.Numeric Enums - Initialized
+-------------------------------------
+You can set the value of the first numeric enum and have it auto increment from that:
+enum CardinalDirections {
+  North = 1,
+  East,
+  South,
+  West
+}
+// logs 1
+console.log(CardinalDirections.North);
+// logs 4
+console.log(CardinalDirections.West);
+
+Numeric Enums - Fully Initialized
+---------------------------------------
+You can assign unique number values for each enum value. Then the values will not incremented automatically:
+enum StatusCodes {
+  NotFound = 404,
+  Success = 200,
+  Accepted = 202,
+  BadRequest = 400
+}
+// logs 404
+console.log(StatusCodes.NotFound);
+// logs 200
+console.log(StatusCodes.Success);
+
+String Enums
+-------------------------
+Enums can also contain strings. This is more common than numeric enums, because of their readability and intent.
+
+enum CardinalDirections {
+  North = 'North',
+  East = "East",
+  South = "South",
+  West = "West"
+};
+// logs "North"
+console.log(CardinalDirections.North);
+// logs "West"
+console.log(CardinalDirections.West);
+
+---------------------------------------------------------------------------------------------------------------
+
+Type Aliases
+-------------------------
+Type Aliases allow defining types with a custom name (an Alias).
+
+Type Aliases can be used for primitives like string or more complex types such as objects and arrays:
+
+type CarYear = number
+type CarType = string
+type CarModel = string
+type Car = {
+  year: CarYear,
+  type: CarType,
+  model: CarModel
+}
+
+const carYear: CarYear = 2001
+const carType: CarType = "Toyota"
+const carModel: CarModel = "Corolla"
+
+
+const car: Car = {
+  year: carYear,
+  type: carType,
+  model: carModel
+};
+
+---------------------------------------------------------------------------------------------
+
+Interfaces
+----------------------
+Interfaces are similar to type aliases, except they only apply to object types.
+
+interface Rectangle {
+  height: number,
+  width: number
+}
+
+const rectangle: Rectangle = {
+  height: 20,
+  width: 10
+};
+
+Note:- Extending an interface means you are creating a new interface with the same properties as the original, plus something new.
+
+interface Rectangle {
+  height: number,
+  width: number
+}
+
+interface ColoredRectangle extends Rectangle {
+  color: string
+}
+
+const coloredRectangle: ColoredRectangle = {
+  height: 20,
+  width: 10,
+  color: "red"
+};
+---------------------------------------------------------------------------------------------
+Union Types
+-------------
+Union types are used when a value can be more than a single type.
+
+Such as when a property would be string or number.
+
+function printStatusCode(code: string | number) {
+  console.log(`My status code is ${code}.`)
+}
+printStatusCode(404);
+printStatusCode('404');
+
+Union Type Errors
+------------------------
+Note: you need to know what your type is when union types are being used to avoid type errors:
+
+function printStatusCode(code: string | number) {
+  console.log(`My status code is ${code.toUpperCase()}.`) // error: Property 'toUpperCase' does not exist ontype 'string | number'.
+  Property 'toUpperCase' does not exist on type 'number'
+}
+
+---------------------------------------------------------------------------------------------
+
+Return Type
+------------------
+The type of the value returned by the function can be explicitly defined.
+
+// the `: number` here specifies that this function returns a number
+function getTime(): number {
+  return new Date().getTime();
+}
+
+Void Return Type
+------------------
+function printHello(): void {
+  console.log('Hello!');
+}
+
+---------------------------------------------------------------------------------------------
+Parameters
+-----------------
+Function parameters are typed with a similar syntax as variable declarations.
+
+function multiply(a: number, b: number) {
+  return a * b;
+}
+
+Optional Parameters
+----------------------
+By default TypeScript will assume all parameters are required, but they can be explicitly marked as optional.
+
+function add(a: number, b: number, c?: number) {
+  return a + b + (c || 0);
+}
+
+Default Parameters
+----------------------
+For parameters with default values, the default value goes after the type annotation:
+
+function pow(value: number, exponent: number = 10) {
+  return value ** exponent;
+}
+
+Named Parameters
+----------------------
+Typing named parameters follows the same pattern as typing normal parameters.
+
+function divide({ dividend, divisor }: { dividend: number, divisor: number }) {
+  return dividend / divisor;
+}
+
+Rest Parameters
+------------------------
+Rest parameters can be typed like normal parameters, but the type must be an array as rest parameters are always arrays.
+
+function add(a: number, b: number, ...rest: number[]) {
+  return a + b + rest.reduce((p, c) => p + c, 0);
+}
+---------------------------------------------------------------------------------------------
+
+Type Alias
+=---------------
+Function types can be specified separately from functions with type aliases.
+
+These types are written similarly to arrow functions.
+
+type Negate = (value: number) => number;
+
+// in this function, the parameter `value` automatically gets assigned the type `number` from the type `Negate`
+const negateFunction: Negate = (value) => value * -1;
+
+---------------------------------------------------------------------------------------------
+
+TypeScript Casting
+--------------------
+There are times when working with types where it's necessary to override the type of a variable, such as when incorrect types are provided by a library.
+
+Casting is the process of overriding a type.
+
+Casting with as
+-------------------
+A straightforward way to cast a variable is using the as keyword, which will directly change the type of the given variable.
+
+let x: unknown = 'hello';
+console.log((x as string).length);
+
+example
+------------
+let x: unknown = 4;
+console.log((x as string).length); // prints undefined since numbers don't have a length
+
+console.log((4 as string).length); // Error: Conversion of type 'number' to type 'string' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+
+Casting with <>
+-----------------
+Using <> works the same as casting with as.
+
+let x: unknown = 'hello';
+console.log((<string>x).length);
+
+Force casting
+-----------------
+To override type errors that TypeScript may throw when casting, first cast to unknown, then to the target type.
+
+let x = 'hello';
+console.log(((x as unknown) as number).length); // x is not actually a number so this will return undefined
+
+---------------------------------------------------------------------------------------------
+
+TypeScript Classes
+------------------
+TypeScript adds types and visibility modifiers to JavaScript classes
+
+
+Members: Types
+-------------------
+The members of a class (properties & methods) are typed using type annotations, similar to variables.
+
+class Person {
+  name: string;
+}
+
+const person = new Person();
+person.name = "Jane";
+
+Members: Visibility
+--------------------
+Class members also be given special modifiers which affect visibility.
+
+public - (default) allows access to the class member from anywhere
+private - only allows access to the class member from within the class
+protected - allows access to the class member from itself and any classes that inherit it, which is covered in the inheritance section below
+
+class Person {
+  private name: string;
+
+  public constructor(name: string) {
+    this.name = name;
+  }
+
+  public getName(): string {
+    return this.name;
+  }
+}
+
+const person = new Person("Jane");
+console.log(person.getName()); // person.name isn't accessible from outside the class since it's private
+
+
+Parameter Properties
+-------------------------
+TypeScript provides a convenient way to define class members in the constructor, by adding a visibility modifiers to the parameter.
+
+class Person {
+  // name is a private member variable
+  public constructor(private name: string) {}
+
+  public getName(): string {
+    return this.name;
+  }
+}
+
+const person = new Person("Jane");
+console.log(person.getName());
+
+
+Readonly
+--------------------------
+Similar to arrays, the readonly keyword can prevent class members from being changed.
+
+class Person {
+  private readonly name: string;
+
+  public constructor(name: string) {
+    // name cannot be changed after this initial definition, which has to be either at it's declaration or in the constructor.
+    this.name = name;
+  }
+
+  public getName(): string {
+    return this.name;
+  }
+}
+
+const person = new Person("Jane");
+console.log(person.getName());
+
+Inheritance: Implements
+------------------------------------
+Interfaces can be used to define the type a class must follow through the implements keyword.
+
+interface Shape {
+  getArea: () => number;
+}
+
+class Rectangle implements Shape {
+  public constructor(protected readonly width: number, protected readonly height: number) {}
+
+  public getArea(): number {
+    return this.width * this.height;
+  }
+}
+
+
+Inheritance: Extends
+------------------------------------
+Classes can extend each other through the extends keyword. A class can only extends one other class.
+
+interface Shape {
+  getArea: () => number;
+}
+
+class Rectangle implements Shape {
+  public constructor(protected readonly width: number, protected readonly height: number) {}
+
+  public getArea(): number {
+    return this.width * this.height;
+  }
+}
+
+class Square extends Rectangle {
+  public constructor(width: number) {
+    super(width, width);
+  }
+
+  // getArea gets inherited from Rectangle
+}
+
+
+Override
+----------------------
+When a class extends another class, it can replace the members of the parent class with the same name.
+
+Newer versions of TypeScript allow explicitly marking this with the override keyword.
+
+
+interface Shape {
+  getArea: () => number;
+}
+
+class Rectangle implements Shape {
+  // using protected for these members allows access from classes that extend from this class, such as Square
+  public constructor(protected readonly width: number, protected readonly height: number) {}
+
+  public getArea(): number {
+    return this.width * this.height;
+  }
+
+  public toString(): string {
+    return `Rectangle[width=${this.width}, height=${this.height}]`;
+  }
+}
+
+class Square extends Rectangle {
+  public constructor(width: number) {
+    super(width, width);
+  }
+
+  // this toString replaces the toString from Rectangle
+  public override toString(): string {
+    return `Square[width=${this.width}]`;
+  }
+}
+
+Abstract Classes
+-------------------------
+Classes can be written in a way that allows them to be used as a base class for other classes without having to implement all the members. This is done by using the abstract keyword. Members that are left unimplemented also use the abstract keyword.
+
+abstract class Polygon {
+  public abstract getArea(): number;
+
+  public toString(): string {
+    return `Polygon[area=${this.getArea()}]`;
+  }
+}
+
+class Rectangle extends Polygon {
+  public constructor(protected readonly width: number, protected readonly height: number) {
+    super();
+  }
+
+  public getArea(): number {
+    return this.width * this.height;
+  }
+}
+
+---------------------------------------------------------------------------------------------
+
+TypeScript Basic Generics
+-----------------------------
+Generics allow creating 'type variables' which can be used to create classes, functions & type aliases that don't need to explicitly define the types that they use.
+
+Functions
+-----------------------------
+Generics with functions help make more generalized methods which more accurately represent the types used and returned.
+
+function createPair<S, T>(v1: S, v2: T): [S, T] {
+  return [v1, v2];
+}
+console.log(createPair<string, number>('hello', 42)); // ['hello', 42]
+
+Classes
+-----------------------------
+Generics can be used to create generalized classes, like Map.
+---------------------------------------------------------------------------------------------
+
+TypeScript Null & Undefined
+----------------------------
+TypeScript has a powerful system to deal with null or undefined values.null and undefined are primitive types and can be used like other types, such as string.
+
+let value: string | undefined | null = null;
+value = 'hello';
+value = undefined;
+
+
+Optional Chaining
+----------------------------
+Optional Chaining is a JavaScript feature that works well with TypeScript's null handling. It allows accessing properties on an object, that may or may not exist, with a compact syntax. It can be used with the ?. operator when accessing properties.
+
+interface House {
+  sqft: number;
+  yard?: {
+    sqft: number;
+  };
+}
+function printYardSize(house: House) {
+  const yardSize = house.yard?.sqft;
+  if (yardSize === undefined) {
+    console.log('No yard');
+  } else {
+    console.log(`Yard is ${yardSize} sqft`);
+  }
+}
+
+let home: House = {
+  sqft: 500
+};
+
+printYardSize(home); // Prints 'No yard'
+
+Nullish Coalescence
+----------------------------
+Nullish Coalescence is another JavaScript feature that also works well with TypeScript's null handling. It allows writing expressions that have a fallback specifically when dealing with null or undefined. This is useful when other falsy values can occur in the expression but are still valid. It can be used with the ?? operator in an expression, similar to using the && operator.
+
+
+function printMileage(mileage: number | null | undefined) {
+  console.log(`Mileage: ${mileage ?? 'Not Available'}`);
+}
+
+printMileage(null); // Prints 'Mileage: Not Available'
+printMileage(0); // Prints 'Mileage: 0'
+
+
+---------------------------------------------------------------------------------------------
+TS 5 features
+----------------------
+1. Template Literal Types
+2. Index Signature Labels
