@@ -39,9 +39,85 @@ Purpose of HOCs/Why we use:::: 1) Code Reuse: HOCs allow you to extract common l
 
 Example of when to use a HOC:::::: Consider a scenario where you have multiple components in your React application that need to fetch data from an API endpoint. Instead of duplicating the data fetching logic in each component, you can create a HOC to handle the data fetching and then pass the fetched data as props to the components.
 
+A) HOC component ---
+import React,{Component} from "react";
 
 
+const AreaOFRatings = (SUBCOMP) =>{
 
+    class AreaOFRating extends Component {
+        render(){
+            return (
+                <SUBCOMP hocsub="JAVASCRIPT"></SUBCOMP>
+            )
+        }
+    }
+    return AreaOFRating;
+}
+
+export default AreaOFRatings;
+
+
+B)  normal component which wil pass to HOC componet:
+import React from "react";
+import AreaOFRatings from "./HOC";
+class User1 extends React.Component {
+    state={
+        rating:0
+    }
+
+    RatingInc = ()=>{
+        this.setState({rating:this.state.rating+1})
+    }
+    render() {
+
+        return (
+            <div>
+                <h2 onMouseOver={this.RatingInc}>User1 Rank: {this.state.rating},{this.props.hocsub}</h2>
+            </div>
+        )
+    }
+}
+export default AreaOFRatings(User1);
+
+C) another  normal component which wil pass to HOC componet:
+import React from "react";
+import AreaOFRatings from "./HOC";
+class User2 extends React.Component {
+    state={
+        rating:0
+    }
+
+    RatingInc = ()=>{
+        this.setState({rating:this.state.rating+1})
+    }
+    render() {
+
+        return (
+            <div>
+                <h2 onMouseOver={this.RatingInc}>User2 Rank: {this.state.rating}, {this.props.hocsub}</h2>
+            </div>
+        )
+    }
+}
+export default AreaOFRatings(User2);
+
+D) Main component APP :
+import './App.css';
+import User1 from './Components/User1.jsx';
+import User2 from './Components/USer2.jsx';
+function App() {
+  return (
+    <>
+       <h5>HOC COMPONENTS</h5>
+       <hr />
+      <User1></User1>
+      <User2></User2>
+    </>
+  );
+}
+
+export default App;
 ================================================================================================================================
 ###) What are hooks in React? How do they differ from class components?
 
