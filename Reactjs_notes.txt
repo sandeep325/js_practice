@@ -42,7 +42,6 @@ Example of when to use a HOC:::::: Consider a scenario where you have multiple c
 
 
 
-
 ================================================================================================================================
 ###) What are hooks in React? How do they differ from class components?
 
