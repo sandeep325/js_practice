@@ -495,3 +495,29 @@ for(let i=positionD; i<=DlArr.length-1; i++){
 }
 DlArr.length = DlArr.length-1;
 console.log(DlArr);
+
+//======================CALL BACK EXAMPLE========================================
+
+const CallBackFun = () =>{
+   return "completed Task & called CallBack...";  
+ };
+ const NormalFun = (val1,val2,Callback) =>{
+     console.log(val1+val2);
+     console.log(Callback());
+ }
+ NormalFun(2,2,CallBackFun);
+
+ //========================PROMISE EXAMPLE======================================================
+ 
+const P1 =  new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        console.log("call after 1000 sec.");
+    },1000);
+    resolve();
+});
+
+P1.then((res)=>{
+    console.log("reslove.");
+}).catch((err)=>{ 
+    console.log("error catch.");
+});
