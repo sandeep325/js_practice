@@ -1,1 +1,55 @@
-*) Error Boundary
+*) Error Boundary::->Error Boundaries basically provide some sort of boundaries or checks on errors,They are React components that are used to handle JavaScript errors in their child component tree.
+In React, "error boundaries" are components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of crashing the entire React application. They are a feature introduced in React 16 to improve the error-handling experience in applications.
+
+   How Error Boundaries Work::->  To define an error boundary in your React application, you create a component that extends React.Component and implements either or both of the lifecycle methods static getDerivedStateFromError(error) or componentDidCatch(error, errorInfo).
+
+static getDerivedStateFromError(error):- This method is used to update state when an error is thrown by a descendant component. It allows the component to render a fallback UI after an error occurs. It only say there is error or not.
+
+componentDidCatch(error, errorInfo): This method is called after an error has been thrown by a descendant component. It say there is error or not and also send the info of error.
+It receives two parameters:
+error: The error that was thrown.
+errorInfo: An object with a componentStack key containing information about which component threw the error.
+Usage::: You wrap components that you suspect might throw errors in your application with the error boundary component. This way, if any error occurs within that subtree of components, the error boundary will catch it and handle it gracefully.
+
+
+Key Points to Remember::::-->
+Propagation:: Error boundaries catch errors during rendering, in lifecycle methods, and in constructors of the whole tree below them.
+
+Single Responsibility:: Each error boundary covers its own subtree, and they do not catch errors for the whole application. You can have multiple error boundaries in a single application.
+
+Class Components:: Error boundaries are regular React components defined as classes. They only catch errors in components below them in the tree, not above.
+
+Function Components:: Starting from React 16.6, you can also use error boundaries with function components using the useErrorBoundary hook from libraries like react-error-boundary.
+note::- Error boundries help in which components have error only effect them and rest of the whole app will not crash.
+
+1)static getDrivedStateFromErro(error) {
+return {hasError:true};
+}    //will tell only there is error or not ,it will not give the info about error.
+
+2) componentDidCatch(error,errorInfo) {
+ logErrorToMyService(error,errorInfo);
+}   //will tell the error and as well as will give the error info.
+
+===============================================================================================================================
+*)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
