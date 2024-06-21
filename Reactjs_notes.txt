@@ -217,6 +217,21 @@ export default LayoutHook;
 ===============================================================================================================================
 ###) Describe the significance of React's Context API. When would you prefer using Context over props drilling?
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+==============================================================================================================================
+==============================================================================================================================
 ###) Compare React's server-side rendering (SSR) vs. client-side rendering (CSR). When would you choose one over the other in a project?
 
 ###) How does React handle state management? Discuss the use of Redux with React and explain the benefits of using Redux in a large application.
@@ -241,23 +256,3 @@ export default LayoutHook;
 
 ###) Discuss the importance of code splitting in a React application. How would you implement code splitting using React.lazy() and Suspense?
 ###) How many hooks in react Explain it ?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
