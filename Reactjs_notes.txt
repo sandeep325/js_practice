@@ -134,7 +134,9 @@ Hooks in React are functions that allow you to use state and other React feature
 3. Lifecycle Methods:: Hooks provide lifecycle functionalities (like useEffect for handling side effects) directly within function components. Class components use lifecycle methods (componentDidMount, componentDidUpdate, etc.) for similar purposes.
 4.Readability and Maintainability:: Hooks generally lead to more concise and readable code compared to class components, especially for simpler components that don't require the full power of class-based architecture.
 5. Ease of Testing:: Functional components with hooks are easier to test because you can test them like regular functions without needing to deal with the complexities of class instance methods and lifecycle methods.
+
 Types of hooks in reactjs:-
+
 1) useState():- Allows functional components to manage local state.
 ex:- const[count setCount] = useState(0);
 
@@ -144,6 +146,8 @@ ex:- const [state, dispatch] = useReducer(reducer, initialState);
 3)useEffect():-Allows functional components to perform side effects.
 Some examples of side effects are: fetching data, directly updating the DOM, and timers.
 useEffect accepts two arguments. The second argument is optional.
+useEffect is Asynchronous.
+useEffect always run after DOM printed.
 useEffect(<function>, <dependency>)
 Similar to componentDidMount, componentDidUpdate, and componentWillUnmount in class components.
 Ex: useEffect(() => {
@@ -174,7 +178,7 @@ useLayoutEffect runs synchronously.
 The most common use case of useLayoutEffect is to get the dimension of the layout. That's why it's name is useLayoutEffect.
 useLayoutEffect always run before useEffect. (when we use both in out react components.).
 React calculate this component -->then> React prints all elements -->then> useEffect.
-
+EX:-
 ===============================================================================================================================
 ===============================================================================================================================
 ###) Describe the significance of React's Context API. When would you prefer using Context over props drilling?
