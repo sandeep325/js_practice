@@ -121,6 +121,7 @@ function App() {
 }
 
 export default App;
+
 ===============================================================================================================================
 ===============================================================================================================================
 ###) What are hooks in React? How do they differ from class components?
@@ -133,8 +134,36 @@ Hooks in React are functions that allow you to use state and other React feature
 3. Lifecycle Methods:: Hooks provide lifecycle functionalities (like useEffect for handling side effects) directly within function components. Class components use lifecycle methods (componentDidMount, componentDidUpdate, etc.) for similar purposes.
 4.Readability and Maintainability:: Hooks generally lead to more concise and readable code compared to class components, especially for simpler components that don't require the full power of class-based architecture.
 5. Ease of Testing:: Functional components with hooks are easier to test because you can test them like regular functions without needing to deal with the complexities of class instance methods and lifecycle methods.
+Types of hooks in reactjs:-
+1) useState():- Allows functional components to manage local state.
+ex:- const[count setCount] = useState(0);
 
+2) useReducer():- Alternative to useState for more complex state management.
+ex:- const [state, dispatch] = useReducer(reducer, initialState);
 
+3)useEffect():-Allows functional components to perform side effects.
+Some examples of side effects are: fetching data, directly updating the DOM, and timers.
+useEffect accepts two arguments. The second argument is optional.
+useEffect(<function>, <dependency>)
+Similar to componentDidMount, componentDidUpdate, and componentWillUnmount in class components.
+Ex: useEffect(() => {
+  // Effect code
+  return () => {
+    // Cleanup code
+  };
+}, [dependencies]);
+
+4) useContext():- Allows functional components to consume context. (It is solution of Props drilling in react components.)
+Ex:-const value = useContext(MyContext);
+
+5) useRef() :- Returns a mutable ref object whose .current property is initialized to the passed argument.
+Useful for accessing DOM nodes or storing mutable values.
+Ex:- const inputRef = useRef(initialValue);
+
+6) useMemo():- Memoizes a value computation and returns the memoized value.  Useful for optimizing performance by caching expensive calculations.
+Ex:- const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+
+===============================================================================================================================
 ===============================================================================================================================
 ###) Describe the significance of React's Context API. When would you prefer using Context over props drilling?
 
