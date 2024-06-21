@@ -303,12 +303,16 @@ const Footer = () => {
   );
 };
 export default App;
-
-
 ==============================================================================================================================
 ==============================================================================================================================
 ###) Compare React's server-side rendering (SSR) vs. client-side rendering (CSR). When would you choose one over the other in a project?
 
+
+
+
+
+==============================================================================================================================
+==============================================================================================================================
 ###) How does React handle state management? Discuss the use of Redux with React and explain the benefits of using Redux in a large application.
 
 ###) What are React Fragments? How and why would you use them in your components?
