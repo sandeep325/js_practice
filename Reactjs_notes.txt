@@ -178,7 +178,41 @@ useLayoutEffect runs synchronously.
 The most common use case of useLayoutEffect is to get the dimension of the layout. That's why it's name is useLayoutEffect.
 useLayoutEffect always run before useEffect. (when we use both in out react components.).
 React calculate this component -->then> React prints all elements -->then> useEffect.
-EX:-
+EX:-      import React,{useState,useEffect,useLayoutEffect,useRef} from "react";
+
+const LayoutHook = () =>{
+const [toggle,setToggle] = useState(false);
+const textRef = useRef();
+
+useEffect(()=>{
+    console.log("useEffect call !");
+    if(textRef.current != null) {
+        const dimansion = textRef.current.getBoundingClientRect();
+        textRef.current.style.paddingTop = `${dimansion?.height}px`;
+        console.log(dimansion);
+    } 
+},[toggle]);
+
+// uselayout example
+useLayoutEffect(()=>{
+    console.log("useLayoutEffect call !");
+    if(textRef.current != null) {
+        const dimansion = textRef.current.getBoundingClientRect();
+        textRef.current.style.paddingTop = `${dimansion?.height}px`;
+        console.log(dimansion);
+    }
+},[toggle]);
+
+const togleFun = () =>{
+    setToggle(!toggle);
+}
+
+return (<>
+<button onClick={togleFun}>Toggle</button>
+   { toggle && <h4 ref={textRef}>Code base</h4> } 
+</>);
+}
+export default LayoutHook;
 ===============================================================================================================================
 ===============================================================================================================================
 ###) Describe the significance of React's Context API. When would you prefer using Context over props drilling?
