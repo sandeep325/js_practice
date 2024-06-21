@@ -163,6 +163,11 @@ Ex:- const inputRef = useRef(initialValue);
 6) useMemo():- Memoizes a value computation and returns the memoized value.  Useful for optimizing performance by caching expensive calculations.
 Ex:- const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 
+7) useCallback():- Returns a memoized callback. Useful for optimizing performance by caching callbacks that depend on props or state.
+Ex:-const memoizedCallback = useCallback(() => {
+  // Callback function
+}, [dependencies]);
+
 ===============================================================================================================================
 ===============================================================================================================================
 ###) Describe the significance of React's Context API. When would you prefer using Context over props drilling?
