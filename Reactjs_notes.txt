@@ -168,7 +168,12 @@ Ex:-const memoizedCallback = useCallback(() => {
   // Callback function
 }, [dependencies]);
  
-8) useLayoutEffect():-
+8) useLayoutEffect():- useLayoutEffect hooks works same as useEffect hooks but the diffrence is- useEffect runs after the DOM is printed on the browser. UseLayoutEffect runs Before the DOM is printed on the browser.
+Whenever we want to run code before the DOM is printed like we want to measure Height, Width or Anything related to layout we can use useLayoutEffect.
+useLayoutEffect runs synchronously.
+The most common use case of useLayoutEffect is to get the dimension of the layout. That's why it's name is useLayoutEffect.
+useLayoutEffect always run before useEffect. (when we use both in out react components.).
+React calculate this component -->then> React prints all elements -->then> useEffect.
 
 ===============================================================================================================================
 ===============================================================================================================================
