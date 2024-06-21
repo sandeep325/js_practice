@@ -1,3 +1,4 @@
+==============================================================================================================================
 ###) Error Boundary::->Error Boundaries basically provide some sort of boundaries or checks on errors,They are React components that are used to handle JavaScript errors in their child component tree.
 In React, "error boundaries" are components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of crashing the entire React application. They are a feature introduced in React 16 to improve the error-handling experience in applications.
 
@@ -30,7 +31,9 @@ return {hasError:true};
  logErrorToMyService(error,errorInfo);
 }   //will tell the error and as well as will give the error info.
 
-================================================================================================================================###) Explain the purpose of Higher-Order Components (HOCs) in React. Give an example of when you would use one. ?
+===============================================================================================================================
+===============================================================================================================================
+###) Explain the purpose of Higher-Order Components (HOCs) in React. Give an example of when you would use one. ?
 :::::When you pass a component to a function and it returns a new component, it’s called a higher-order component (HOC). 
 Higher-Order Components (HOCs) in React are a design pattern used for reusing component logic. They are functions that accept a component as an argument and return a new component with enhanced functionality. The main purpose of HOCs is to share common functionality between components without repeating code.
 
@@ -118,9 +121,12 @@ function App() {
 }
 
 export default App;
-================================================================================================================================
+===============================================================================================================================
+===============================================================================================================================
 ###) What are hooks in React? How do they differ from class components?
 
+
+===============================================================================================================================
 ###) Describe the significance of React's Context API. When would you prefer using Context over props drilling?
 
 ###) Compare React's server-side rendering (SSR) vs. client-side rendering (CSR). When would you choose one over the other in a project?
