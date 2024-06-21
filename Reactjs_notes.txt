@@ -228,7 +228,83 @@ Significance of React's Context API:::
 
 4)Performance Considerations:-While Context can be convenient, excessive use can lead to unnecessary re-renders of components consuming context, so it's important to use it judiciously and consider the performance implications.
 
-When to Use Context API Over Props Drilling:::
+When to Use Context API Over Props Drilling::: 
+1) Deeply Nested Components:: When you have deeply nested components that need access to certain data or functions, using Context avoids the overhead of passing props through many intermediate components.
+2)Global State Requirements:: For managing global state that is accessed by many components across different parts of your application. Examples include user authentication status, user preferences, theme settings, etc.
+
+Example for Context API :---
+// Step 1: Create a context
+import React, { createContext, useState, useContext } from 'react';
+
+const ThemeContext = createContext(); // Create a context object
+
+// Step 2: Create a provider component
+const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+// Step 3: Use the context in consuming components
+const App = () => {
+  return (
+    <ThemeProvider>
+      <div>
+        <Header />
+        <Main />
+        <Footer />
+      </div>
+    </ThemeProvider>
+  );
+};
+
+const Header = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  return (
+    <header style={{ background: theme === 'light' ? '#f0f0f0' : '#333', color: theme === 'light' ? '#333' : '#f0f0f0' }}>
+      <h1>Header</h1>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+    </header>
+  );
+};
+
+const Main = () => {
+  return (
+    <main>
+      <Content />
+    </main>
+  );
+};
+
+const Content = () => {
+  const { theme } = useContext(ThemeContext);
+  return (
+    <section style={{ background: theme === 'light' ? '#f9f9f9' : '#666', color: theme === 'light' ? '#333' : '#f0f0f0' }}>
+      <h2>Content Section</h2>
+      <p>This is the main content area.</p>
+    </section>
+  );
+};
+
+const Footer = () => {
+  const { theme } = useContext(ThemeContext);
+  return (
+    <footer style={{ background: theme === 'light' ? '#f0f0f0' : '#333', color: theme === 'light' ? '#333' : '#f0f0f0' }}>
+      <p>Footer</p>
+    </footer>
+  );
+};
+export default App;
+
+
 ==============================================================================================================================
 ==============================================================================================================================
 ###) Compare React's server-side rendering (SSR) vs. client-side rendering (CSR). When would you choose one over the other in a project?
